@@ -1,3 +1,4 @@
+import jsPDF from "jspdf";
 import React, { useRef, useEffect, useState } from "react";
 import "./Canvas.sass";
 
@@ -24,7 +25,7 @@ const Canvas = () => {
     context.strokeStyle = `${color}`;
     context.lineWidth = 2;
     contextRef.current = context;
-  }, [color]);
+  }, [color, clear]);
 
   const startDrawing = ({ nativeEvent }) => {
     const { offsetX, offsetY } = nativeEvent;
@@ -64,6 +65,20 @@ const Canvas = () => {
     },
   ];
 
+  const canvasDownload = () => {
+    const canvas = document.getElementById("pdfCanvas");
+    const imgData = canvas.toDataURL("#ffffff", {
+      type: "image/jpeg",
+      encoderOptions: 1.0,
+    });
+    const doc = new jsPDF();
+
+    doc.setFontSize(40);
+    doc.text("I love React Js", 35, 25);
+    doc.addImage(imgData, "JPEG", 15, 40, 180, 180);
+    doc.save("download.pdf");
+  };
+
   return (
     <main>
       <div className="canvas__color">
@@ -84,13 +99,16 @@ const Canvas = () => {
 
       <div className="canvas">
         <canvas
+          id="pdfCanvas"
           onMouseDown={startDrawing}
           onMouseUp={finishDrawing}
           onMouseMove={draw}
           ref={canvasRef}
         />
       </div>
-      <button className="canvas__downloadBtn">Download PDF</button>
+      <button onClick={canvasDownload} className="canvas__downloadBtn" download>
+        Download PDF
+      </button>
     </main>
   );
 };
