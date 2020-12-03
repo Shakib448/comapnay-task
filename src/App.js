@@ -1,5 +1,5 @@
 import React, { useRef, useEffect, useState } from "react";
-import "./App.css";
+import "./App.sass";
 
 function App() {
   const canvasRef = useRef(null);
@@ -8,10 +8,10 @@ function App() {
 
   useEffect(() => {
     const canvas = canvasRef.current;
-    canvas.width = 800;
-    canvas.height = 600;
-    canvas.style.width = `800px`;
-    canvas.style.height = `600px`;
+    canvas.width = 600;
+    canvas.height = 400;
+    canvas.style.width = `600px`;
+    canvas.style.height = `400px`;
 
     const context = canvas.getContext("2d");
     context.scale(1, 1);
@@ -43,14 +43,16 @@ function App() {
   };
 
   return (
-    <div className="canvas">
-      <canvas
-        onMouseDown={startDrawing}
-        onMouseUp={finishDrawing}
-        onMouseMove={draw}
-        ref={canvasRef}
-      />
-    </div>
+    <main>
+      <div className="canvas">
+        <canvas
+          onMouseDown={startDrawing}
+          onMouseUp={finishDrawing}
+          onMouseMove={draw}
+          ref={canvasRef}
+        />
+      </div>
+    </main>
   );
 }
 
