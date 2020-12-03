@@ -6,7 +6,7 @@ const Canvas = () => {
   const canvasRef = useRef(null);
   const contextRef = useRef(null);
   const [isDrawing, setIsDrawing] = useState(false);
-  const [color, setColor] = useState("#000000");
+  const [color, setColor] = useState("#FF0000");
   const [clear, setClear] = useState(false);
 
   useEffect(() => {
@@ -67,14 +67,13 @@ const Canvas = () => {
 
   const canvasDownload = () => {
     const canvas = document.getElementById("pdfCanvas");
-    const imgData = canvas.toDataURL("#ffffff", {
+    const imgData = canvas.toDataURL("", {
       type: "image/jpeg",
       encoderOptions: 1.0,
     });
     const doc = new jsPDF();
-
     doc.setFontSize(40);
-    doc.text("I love React Js", 35, 25);
+    doc.text("I hope the task is completed", 20, 20);
     doc.addImage(imgData, "JPEG", 15, 40, 180, 180);
     doc.save("download.pdf");
   };
