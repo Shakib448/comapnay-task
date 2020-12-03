@@ -76,6 +76,7 @@ const Canvas = () => {
           ></button>
         ))}
         <button
+          className="canvas__clear"
           onClick={() => setClear(!clear)}
           style={{ borderColor: "lightgray" }}
         ></button>
