@@ -5,6 +5,7 @@ function App() {
   const canvasRef = useRef(null);
   const contextRef = useRef(null);
   const [isDrawing, setIsDrawing] = useState(false);
+  const [color, setColor] = useState("#000000");
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -16,10 +17,10 @@ function App() {
     const context = canvas.getContext("2d");
     context.scale(1, 1);
     context.lineCap = "round";
-    context.strokeStyle = "black";
-    context.lineWidth = 5;
+    context.strokeStyle = `${color}`;
+    context.lineWidth = 2;
     contextRef.current = context;
-  }, []);
+  }, [color]);
 
   const startDrawing = ({ nativeEvent }) => {
     const { offsetX, offsetY } = nativeEvent;
@@ -34,16 +35,40 @@ function App() {
   };
 
   const draw = ({ nativeEvent }) => {
-    if (!isDrawing) {
-      return;
-    }
+    if (!isDrawing) return;
     const { offsetX, offsetY } = nativeEvent;
     contextRef.current.lineTo(offsetX, offsetY);
     contextRef.current.stroke();
   };
 
+  const colorPicker = [
+    {
+      name: "Red",
+      color: "#FF0000",
+    },
+    {
+      name: "Green",
+      color: "#00FF00",
+    },
+    {
+      name: "Yellow",
+      color: "#FFFF00",
+    },
+    {
+      name: "Sky",
+      color: "#CDBDE9",
+    },
+  ];
+
   return (
     <main>
+      <div className="canvas__color">
+        {colorPicker.map(({ name, color }, inx) => (
+          <button key={inx} onClick={() => setColor(color)}>
+            {name}
+          </button>
+        ))}
+      </div>
       <div className="canvas">
         <canvas
           onMouseDown={startDrawing}
