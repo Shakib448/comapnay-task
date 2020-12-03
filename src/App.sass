@@ -1,3 +1,8 @@
+=btnHover($bgColor)
+    transition: .5s
+    &:hover
+        background-color : $bgColor
+
 main
     height: 100vh
     display: flex
@@ -9,3 +14,25 @@ main
     height: 400px
     width: 600px
     border : 2px solid #CDBDE9
+
+.canvas__color
+    padding : 2% 0
+
+.canvas__color > button
+    margin : 0 15px
+    padding : 25px
+    border-radius: 50%
+    background-color: transparent
+    border : 2px solid
+    cursor: pointer
+    &:focus
+        outline : none
+
+.Red
+    +btnHover(#FF0000)
+.Green
+    +btnHover(#00FF00)
+.Yellow
+    +btnHover(#FFFF00)
+.Sky
+    +btnHover(#CDBDE9)

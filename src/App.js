@@ -13,7 +13,10 @@ function App() {
     canvas.height = 400;
     canvas.style.width = `600px`;
     canvas.style.height = `400px`;
+  }, []);
 
+  useEffect(() => {
+    const canvas = canvasRef.current;
     const context = canvas.getContext("2d");
     context.scale(1, 1);
     context.lineCap = "round";
@@ -64,9 +67,12 @@ function App() {
     <main>
       <div className="canvas__color">
         {colorPicker.map(({ name, color }, inx) => (
-          <button key={inx} onClick={() => setColor(color)}>
-            {name}
-          </button>
+          <button
+            className={name}
+            style={{ borderColor: `${color}` }}
+            key={inx}
+            onClick={() => setColor(color)}
+          ></button>
         ))}
       </div>
       <div className="canvas">
